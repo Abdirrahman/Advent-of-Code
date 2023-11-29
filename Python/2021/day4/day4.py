@@ -85,14 +85,12 @@ def check_board(board) -> bool:
 
     # Check vertically
     for j in range(5):
-        score = 0
         for i in board:
             if i[j] == "X":
                 return True
 
     # Check horizontally
     for i in board:
-        score = 0
         for j in i:
             if j == "X":
                 return True
@@ -100,15 +98,13 @@ def check_board(board) -> bool:
 
 def check_win(picked_numbers, board):
     """Checks if board meets win condition"""
-    print("check win")
+
     # Check vertically
     for j in range(5):
         score = 0
         for i in board:
             if i[j] in picked_numbers:
                 score += 1
-                print(i[j])
-                print(score)
             if score == 5:
                 return True
 
@@ -118,7 +114,6 @@ def check_win(picked_numbers, board):
         for j in i:
             if j in picked_numbers:
                 score += 1
-                print(score)
             if score == 5:
                 return True
 
@@ -141,26 +136,22 @@ def game():
 
     random_numbers, boards = setup_bingo()
     picked_numbers = []
+    winning_boards = []
     for num in random_numbers:
         for board in boards:
             new_board = mark_board(num, board)
-            # print(new_board)
             check = check_board(new_board)
-            if check == True:
+            if check is True:
                 picked_numbers.append(num)
-                score = check_win(picked_numbers, board)
-                if score == True:
-                    return calculate_sum(board, picked_numbers) * num
+                win = check_win(picked_numbers, board)
+                if win is True:
+                    final_score = calculate_sum(board, picked_numbers)
+                    if board not in winning_boards:
+                        #  Part 2
+                        winning_boards.append(board)
+                        last = calculate_sum(board, picked_numbers) * num
 
-    # for line in boards:
-    #     for board in line:
-    #         for num in board:
-    #             if num in random_numbers:
-    #                 print(num)
-
-    # for num in random_numbers:
-    #     print(num)
-    return "marked"
+    return winning_boards, last
 
 
 if __name__ == "__main__":
