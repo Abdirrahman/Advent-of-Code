@@ -1,3 +1,4 @@
+.DS_Store
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -165,7 +166,6 @@ terraform.tfvars
 *.csv
 
 .terraform*
-.DS_Store
 .env
 venv/
 __pycache__
