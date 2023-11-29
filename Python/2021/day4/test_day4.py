@@ -1,20 +1,6 @@
 from day4 import day4, store_boards, check_bingo, calculate_score
 
 
-# def test_day4():
-
-#     res = day4()
-
-#     assert res == '0000'
-
-# def test_store_boards():
-
-#     res = store_boards()
-
-
-#     assert res == []
-
-
 def test_check_bingo():
     board = [
         [90, 67, 30, 22, 58],

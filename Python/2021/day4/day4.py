@@ -55,16 +55,7 @@ def setup_bingo() -> list[list]:
 
 
 def mark_board(num, board) -> list[list]:
-    """Marks board where random number occurs on the board"""
-
-    # num = 17
-    # board = [
-    #     [31, 5, 70, 8, 88],
-    #     [38, 63, 14, 91, 56],
-    #     [22, 67, 17, 47, 74],
-    #     [93, 52, 69, 29, 53],
-    #     [33, 66, 64, 19, 73],
-    # ]
+    """Marks board where bingo number occurs on the board"""
 
     new_board = [["X" if i == num else i for i in line] for line in board]
 
@@ -72,16 +63,7 @@ def mark_board(num, board) -> list[list]:
 
 
 def check_board(board) -> bool:
-    """Checks if board meets win condition"""
-    # print("check board")
-    # print("cb", board)
-    # board = [
-    #     ["X", "X", "X", 8, 88],
-    #     ["X", "X", "X", "X", "X"],
-    #     ["X", "X", 17, 47, 74],
-    #     [93, "X", 69, 29, 53],
-    #     [33, "X", 64, 19, 73],
-    # ]
+    """Checks if board is marked"""
 
     # Check vertically
     for j in range(5):
@@ -96,8 +78,8 @@ def check_board(board) -> bool:
                 return True
 
 
-def check_win(picked_numbers, board):
-    """Checks if board meets win condition"""
+def check_win(picked_numbers, board) -> bool:
+    """Checks if board meets the win condition"""
 
     # Check vertically
     for j in range(5):
@@ -119,7 +101,7 @@ def check_win(picked_numbers, board):
 
 
 def calculate_sum(board, picked_numbers) -> int:
-    """Sum unpicked numbers from the board"""
+    """Sum of unpicked numbers from the board"""
 
     unpicked_numbers = []
 
@@ -132,7 +114,7 @@ def calculate_sum(board, picked_numbers) -> int:
 
 
 def game():
-    """Play Bingo"""
+    """Simulate bingo game"""
 
     random_numbers, boards = setup_bingo()
     picked_numbers = []
