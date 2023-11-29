@@ -31,7 +31,7 @@ def read_input() -> list[str]:
         return f.read().splitlines()
 
 
-def setup_bingo():
+def setup_bingo() -> list[list]:
     """Set up bingo game"""
 
     lines = read_input()
@@ -54,6 +54,114 @@ def setup_bingo():
     return random_numbers, boards
 
 
+def mark_board(num, board) -> list[list]:
+    """Marks board where random number occurs on the board"""
+
+    # num = 17
+    # board = [
+    #     [31, 5, 70, 8, 88],
+    #     [38, 63, 14, 91, 56],
+    #     [22, 67, 17, 47, 74],
+    #     [93, 52, 69, 29, 53],
+    #     [33, 66, 64, 19, 73],
+    # ]
+
+    new_board = [["X" if i == num else i for i in line] for line in board]
+
+    return new_board
+
+
+def check_board(board) -> bool:
+    """Checks if board meets win condition"""
+    # print("check board")
+    # print("cb", board)
+    # board = [
+    #     ["X", "X", "X", 8, 88],
+    #     ["X", "X", "X", "X", "X"],
+    #     ["X", "X", 17, 47, 74],
+    #     [93, "X", 69, 29, 53],
+    #     [33, "X", 64, 19, 73],
+    # ]
+
+    # Check vertically
+    for j in range(5):
+        score = 0
+        for i in board:
+            if i[j] == "X":
+                return True
+
+    # Check horizontally
+    for i in board:
+        score = 0
+        for j in i:
+            if j == "X":
+                return True
+
+
+def check_win(picked_numbers, board):
+    """Checks if board meets win condition"""
+    print("check win")
+    # Check vertically
+    for j in range(5):
+        score = 0
+        for i in board:
+            if i[j] in picked_numbers:
+                score += 1
+                print(i[j])
+                print(score)
+            if score == 5:
+                return True
+
+    # Check horizontally
+    for i in board:
+        score = 0
+        for j in i:
+            if j in picked_numbers:
+                score += 1
+                print(score)
+            if score == 5:
+                return True
+
+
+def calculate_sum(board, picked_numbers) -> int:
+    """Sum unpicked numbers from the board"""
+
+    unpicked_numbers = []
+
+    for line in board:
+        for num in line:
+            if num not in picked_numbers:
+                unpicked_numbers.append(num)
+
+    return sum(unpicked_numbers)
+
+
+def game():
+    """Play Bingo"""
+
+    random_numbers, boards = setup_bingo()
+    picked_numbers = []
+    for num in random_numbers:
+        for board in boards:
+            new_board = mark_board(num, board)
+            # print(new_board)
+            check = check_board(new_board)
+            if check == True:
+                picked_numbers.append(num)
+                score = check_win(picked_numbers, board)
+                if score == True:
+                    return calculate_sum(board, picked_numbers) * num
+
+    # for line in boards:
+    #     for board in line:
+    #         for num in board:
+    #             if num in random_numbers:
+    #                 print(num)
+
+    # for num in random_numbers:
+    #     print(num)
+    return "marked"
+
+
 if __name__ == "__main__":
-    # console.print(game())
-    console.print(setup_bingo())
+    console.print(game())
