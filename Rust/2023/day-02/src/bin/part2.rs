@@ -9,60 +9,67 @@ fn main() -> std::io::Result<()> {
         .map(|line| line.unwrap().parse::<String>().unwrap())
         .collect();
 
-    let mut _counter = 1;
     let mut sum: Vec<i32> = Vec::new();
-    let mut counter = 1;
-    for i in lines {
-        let mut score = 0;
-        let red: Vec<_> = i.match_indices("red").collect();
+
+    for line in lines {
+        let mut red_count = 0;
+        let mut green_count = 0;
+        let mut blue_count = 0;
+
+        let red: Vec<_> = line.match_indices("red").collect();
+        let mut num = 0;
         for item in red {
-            let chars: Vec<_> = i.chars().collect();
+            let chars: Vec<_> = line.chars().collect();
             let prefix_chars: &[char] = &chars[item.0 - 3..item.0];
             let mut numbers: String = String::new();
             for i in prefix_chars {
                 if i.is_digit(10) {
                     numbers.push(*i);
-                    if numbers.parse::<i32>().unwrap() > 12 {
-                        score += 1
+
+                    if num < numbers.parse::<i32>().unwrap() {
+                        num = numbers.parse::<i32>().unwrap();
                     }
                 }
             }
+            red_count = num
         }
-        let green: Vec<_> = i.match_indices("green").collect();
+        let green: Vec<_> = line.match_indices("green").collect();
+        let mut num = 0;
         for item in green {
-            let chars: Vec<_> = i.chars().collect();
+            let chars: Vec<_> = line.chars().collect();
             let prefix_chars: &[char] = &chars[item.0 - 3..item.0];
             let mut numbers: String = String::new();
             for i in prefix_chars {
                 if i.is_digit(10) {
                     numbers.push(*i);
-                    if numbers.parse::<i32>().unwrap() > 13 {
-                        score += 1
+
+                    if num < numbers.parse::<i32>().unwrap() {
+                        num = numbers.parse::<i32>().unwrap();
                     }
                 }
             }
+            green_count = num
         }
-        let blue: Vec<_> = i.match_indices("blue").collect();
+
+        let blue: Vec<_> = line.match_indices("blue").collect();
+        let mut num = 0;
         for item in blue {
-            let chars: Vec<_> = i.chars().collect();
+            let chars: Vec<_> = line.chars().collect();
             let prefix_chars: &[char] = &chars[item.0 - 3..item.0];
+
             let mut numbers: String = String::new();
             for i in prefix_chars {
                 if i.is_digit(10) {
                     numbers.push(*i);
-                    if numbers.parse::<i32>().unwrap() > 14 {
-                        score += 1
+                    if num < numbers.parse::<i32>().unwrap() {
+                        num = numbers.parse::<i32>().unwrap();
                     }
                 }
             }
+            blue_count = num
         }
-
-        if score == 0 {
-            sum.push(counter)
-        }
-        println!("{:?}", sum.iter().sum::<i32>());
-        counter += 1;
+        sum.push(red_count * green_count * blue_count)
     }
-
+    println!("{:?} ", sum.iter().sum::<i32>());
     Ok(())
 }
