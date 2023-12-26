@@ -10,15 +10,6 @@ fn main() -> std::io::Result<()> {
         .lines()
         .map(|line| line.unwrap().parse::<String>().unwrap())
         .collect();
-    // for text in lines {
-    //     vec.push(text.replace(
-    //         [
-    //             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    //             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    //         ],
-    //         "",
-    //     ));
-    // }
 
     // Hack to read overlapping numbers in string format.
     let mut numbers_map: HashMap<&str, &str> = HashMap::new();

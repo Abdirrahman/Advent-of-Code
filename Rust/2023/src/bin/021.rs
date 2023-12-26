@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
+
 fn main() -> std::io::Result<()> {
     let f = File::open("./part1.txt")?;
     let reader = BufReader::new(f);
