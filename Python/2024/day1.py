@@ -14,7 +14,7 @@ def split(list):
     return sorted(left), sorted(right)
 
 
-def calculate(tups):
+def calculate_differences(tups):
     left = tups[0]
     right = tups[1]
     differences = []
@@ -25,10 +25,25 @@ def calculate(tups):
     return sum(differences)
 
 
+def calculate_similarities(tups):
+    left = tups[0]
+    right = tups[1]
+
+    similarities = []
+
+    for i, n in enumerate(left):
+        count = 0
+        for j, v in enumerate(right):
+            if n == v:
+                count = count + 1
+        similarities.append(int(n) * count)
+    return sum(similarities)
+
+
 if __name__ == "__main__":
 
     x = read_input()
     # print(x)
     # print(split(x))
     y = split(x)
-    print(calculate(y))
+    print(calculate_similarities(y))
